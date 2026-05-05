@@ -12,7 +12,7 @@
 
 <header>
   <nav>
-    <h2>Saniya</h2>
+    <h2 class="logo">Saniya</h2>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -26,13 +26,14 @@
 <section class="hero">
   <h1>Hi, I'm <span>Saniya</span></h1>
   <p id="typing"></p>
-  <a href="#projects" class="btn">Explore Universe 🚀</a>
+  <a href="#projects" class="btn">Explore My Work 🚀</a>
 </section>
 
 <section id="about" class="reveal">
   <h2>About Me</h2>
   <p>
-    MCA student passionate about building scalable and interactive web applications.
+    MCA student passionate about frontend development, building responsive UI,
+    and exploring full-stack technologies.
   </p>
 </section>
 
@@ -41,12 +42,17 @@
 
   <div class="skill">
     <p>JavaScript</p>
-    <div class="bar"><div style="width:90%"></div></div>
+    <div class="bar"><div data-width="90%"></div></div>
   </div>
 
   <div class="skill">
     <p>React</p>
-    <div class="bar"><div style="width:80%"></div></div>
+    <div class="bar"><div data-width="80%"></div></div>
+  </div>
+
+  <div class="skill">
+    <p>HTML/CSS</p>
+    <div class="bar"><div data-width="95%"></div></div>
   </div>
 
 </section>
@@ -54,25 +60,29 @@
 <section id="projects" class="reveal">
   <h2>Projects</h2>
 
-  <div class="card">
-    <h3>ProNet</h3>
-    <p>Networking platform with reusable UI.</p>
-  </div>
+  <div class="cards">
 
-  <div class="card">
-    <h3>Decision Garden</h3>
-    <p>Smart task prioritization app.</p>
+    <div class="card">
+      <h3>ProNet</h3>
+      <p>Professional networking platform with reusable UI components.</p>
+    </div>
+
+    <div class="card">
+      <h3>Decision Garden</h3>
+      <p>Task prioritization planner with local storage.</p>
+    </div>
+
   </div>
 
 </section>
 
 <section id="contact" class="reveal">
   <h2>Contact</h2>
-  <p>saniyaanjum2402@gmail.com</p>
+  <p>Email: saniyaanjum2402@gmail.com</p>
 </section>
 
 <footer>
-  <p>© 2026 Saniya</p>
+  <p>© 2026 Saniya Anjum Siddiqui</p>
 </footer>
 
 <script src="script.js"></script>
