@@ -1,111 +1,161 @@
-// 🌌 STAR BACKGROUND
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+const navbar = document.getElementById('navbar');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let stars = Array(250).fill().map(() => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  size: Math.random() * 2,
-  speed: Math.random() * 0.5
-}));
-
-function drawStars() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "white";
-
-  stars.forEach(s => {
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
-    ctx.fill();
-  });
-}
-
-function animateStars() {
-  stars.forEach(s => {
-    s.y += s.speed;
-    if (s.y > canvas.height) s.y = 0;
-  });
-
-  drawStars();
-  requestAnimationFrame(animateStars);
-}
-animateStars();
-
-
-// ✨ SCROLL REVEAL
-const reveals = document.querySelectorAll(".reveal");
-
-window.addEventListener("scroll", () => {
-  reveals.forEach(el => {
-    let top = el.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      el.classList.add("active");
-    }
-  });
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
+// TYPEWRITER
+const roles = [
+  'Frontend Developer',
+  'React Developer',
+  'UI Enthusiast',
+  'Problem Solver'
+];
 
-// 📊 SKILL BAR ANIMATION
-const bars = document.querySelectorAll(".bar div");
+let roleIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-window.addEventListener("scroll", () => {
-  bars.forEach(bar => {
-    let top = bar.getBoundingClientRect().top;
-    if (top < window.innerHeight - 50) {
-      bar.style.width = bar.getAttribute("data-width");
+const typewriter = document.getElementById('typewriter');
+
+function typeEffect() {
+  const currentRole = roles[roleIndex];
+
+  if (!deleting) {
+    typewriter.textContent = currentRole.substring(0, charIndex++);
+
+    if (charIndex > currentRole.length) {
+      deleting = true;
+      setTimeout(typeEffect, 1200);
+      return;
     }
-  });
-});
+  } else {
+    typewriter.textContent = currentRole.substring(0, charIndex--);
 
-
-// ⌨️ TYPING EFFECT
-const words = ["Frontend Developer", "Creative Thinker", "Future Full Stack"];
-let i = 0, j = 0, current = "", deleting = false;
-
-function type() {
-  current = words[i];
-
-  document.getElementById("typing").textContent =
-    current.substring(0, j);
-
-  if (!deleting) j++; else j--;
-
-  if (j === current.length) deleting = true;
-  if (j === 0) {
-    deleting = false;
-    i = (i + 1) % words.length;
+    if (charIndex < 0) {
+      deleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+    }
   }
 
-  setTimeout(type, deleting ? 60 : 100);
+  setTimeout(typeEffect, deleting ? 60 : 120);
 }
-type();
 
+typeEffect();
 
-// 🌗 THEME TOGGLE
-document.getElementById("toggle").onclick = () => {
-  document.body.classList.toggle("light");
-};
+// REVEAL ANIMATION
+const reveals = document.querySelectorAll('.reveal');
 
+function revealSections() {
+  reveals.forEach((el) => {
+    const top = el.getBoundingClientRect().top;
 
-// 🖱️ CURSOR GLOW TRAIL
-document.addEventListener("mousemove", e => {
-  const glow = document.createElement("div");
+    if (top < window.innerHeight - 100) {
+      el.classList.add('visible');
+    }
+  });
+}
 
-  glow.style.position = "fixed";
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-  glow.style.width = "8px";
-  glow.style.height = "8px";
-  glow.style.background = "#7c3aed";
-  glow.style.borderRadius = "50%";
-  glow.style.pointerEvents = "none";
-  glow.style.boxShadow = "0 0 15px #7c3aed";
-  glow.style.zIndex = "999";
+window.addEventListener('scroll', revealSections);
+revealSections();
 
-  document.body.appendChild(glow);
+// SKILL BARS
+const bars = document.querySelectorAll('.bar-fill');
 
-  setTimeout(() => glow.remove(), 300);
+function animateBars() {
+  bars.forEach(bar => {
+    const width = bar.dataset.width;
+    bar.style.width = width + '%';
+  });
+}
+
+window.addEventListener('load', animateBars);
+
+// COUNTER ANIMATION
+const counters = document.querySelectorAll('.stat-num');
+
+counters.forEach(counter => {
+  const update = () => {
+    const target = +counter.getAttribute('data-target');
+    const current = +counter.innerText;
+
+    const increment = target / 50;
+
+    if (current < target) {
+      counter.innerText = (current + increment).toFixed(1);
+      setTimeout(update, 40);
+    } else {
+      counter.innerText = target;
+    }
+  };
+
+  update();
+});
+
+// ACTIVE NAVBAR LINKS
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+
+    if (scrollY >= sectionTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+
+    if (link.getAttribute('href').includes(current)) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// SCROLL PROGRESS
+const progressBar = document.getElementById('progress-bar');
+
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / height) * 100;
+
+  progressBar.style.width = progress + '%';
+});
+
+// TILT EFFECT
+const tiltCards = document.querySelectorAll('.tilt-card');
+
+ tiltCards.forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+  });
+});
+
+// CUSTOM CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+
+window.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
 });
