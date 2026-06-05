@@ -376,7 +376,7 @@ nav.scrolled { padding: 0.75rem 2.5rem; box-shadow: 0 4px 30px rgba(124,58,237,0
 }
 .edu-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
 .edu-school { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
-.edu-date { font-size: 0.78rem; color: var(--border); margin-bottom: 0.5rem; }
+.edu-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
 .edu-gpa {
   font-size: 0.82rem; color: var(--accent3); font-weight: 600;
 }
